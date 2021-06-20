@@ -1,0 +1,70 @@
+#!/bin/sh
+
+# Copyright 2012-2013 YouView TV Ltd.
+# License: LGPL v2.1 or (at your option) any later version (see
+# https://github.com/stb-tester/stb-tester/blob/master/LICENSE for details).
+
+#/ usage: irtrans <command>
+#/
+#/ Available commands are:
+#/     start          start irserver for irtrans
+#/     stop           stop irserver for irtrans
+
+. utils.sh
+
+usage() { grep '^#/' "$0" | cut -c4-; }
+[ $# -ge 1 ] || { usage >&2; exit 1; }
+
+is_installed()
+{
+	[[ -f /usr/local/irtrans/irserver ]] || fail "irserver not installed"
+	return 1
+}
+
+which_ttyUSB()
+{
+	# Find which ttyUSB  
+	# export ttyUSB=`udevadm info -a -n /dev/ttyUSB* | grep KERNEL== | awk -F'[""]' '{print $2}'`
+	#export ttyUSB=`ls -l /dev/irtrans | awk '{print $11}'`
+	ttyUSB=`readlink /dev/irtrans0`
+	[[ $ttyUSB == "" ]] && fail "IRtrans not found"
+}
+
+irtrans()
+{
+	case $1 in
+		start)
+			if [ ! -f /var/run/irtrans/irtrans.pid ]; then  
+				test -d /var/run/irtrans || sudo mkdir -p /var/run/irtrans
+				# Check CPU arch
+				uname -m | grep _64 > /dev/null
+				[[ $? -eq 0 ]] && bits="64" || bits=""
+				# Launch irserver as daemon and save pid must /dev/ttyUSB*
+				sudo /usr/local/irtrans/irserver${bits} -daemon -baudrate 115200 -pidfile /var/run/irtrans/irtrans.pid /dev/$ttyUSB
+				sleep 3
+				pid=`ps -ef | grep irserver | grep -v grep  | awk '{print $2}'`
+				#echo "---- $pid"
+				[[ "$pid" -ne "" ]] && Done "IRtrans is started: $pid" || fail "IRtrans failed to start"
+				# Add sleep to run irserver
+			else
+				Done "IRtrans is running: $(<"/var/run/irtrans/irtrans.pid")"
+			fi
+				;;
+		stop)
+			# Stop irserver
+			if [ -f /var/run/irtrans/irtrans.pid ]; then 
+				sudo kill -9 $(<"/var/run/irtrans/irtrans.pid")
+				Done "IRtrans Stopped: $(<"/var/run/irtrans/irtrans.pid")"
+				sudo rm -rf /var/run/irtrans/irtrans.pid
+			fi
+			pid=`ps -ef | grep irserver | grep -v grep  | awk '{print $2}'`
+			#echo "---- $pid"
+			[[ "$pid" -ne "" ]] && { sudo kill -9 ${pid}; Done "IRtrans cleaned: $pid"; }
+			Done "IRtrans not running"
+			;;	
+esac
+}
+
+is_installed
+which_ttyUSB
+irtrans $1

@@ -1,0 +1,47 @@
+#!/bin/sh
+
+#/ usage: make [--help] <project>
+#/
+#/ Available commands are:
+#/     project            project name without special character
+
+usage() { grep '^#/' "$0" | cut -c4-; }
+
+
+set_project() {
+	sed -i -e 's,@PROJECT@,'$project',g' $1
+}
+
+
+create_stbtv2_project_tree() {
+	cd ../..
+	mkdir -p $1/$1/
+	mkdir -p $1/_$1/
+	mkdir -p $1/remotes
+	mkdir -p $1/tests/templates
+	touch $1/_$1/__init__.py
+	cp trunk/scripts/template/Makefile $1
+	set_project "$1/Makefile"
+	cp trunk/scripts/template/toolbox.py $1/_$1/
+	set_project "$1/_$1/toolbox.py"
+	cp trunk/scripts/template/__init__.py $1/$1/
+	set_project "$1/$1/__init__.py"
+	cp trunk/scripts/template/sanity.txt $1/
+	set_project "$1/sanity.txt"
+	cp trunk/scripts/template/stbt_.conf  $1/stbt_$project.conf
+	set_project "$1/stbt_$project.conf"
+
+}
+
+
+while getopts "hp:" OPT
+	do
+		case $OPT in
+			h)  usage >&2; exit 0   ;;
+			p)  project=$OPTARG     ;;
+	esac
+done
+
+[ -z $project ] && { usage >&2; exit 1; }
+echo "--- New: $project"
+create_stbtv2_project_tree $project

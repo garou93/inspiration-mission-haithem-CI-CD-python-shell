@@ -1,0 +1,171 @@
+#!/bin/bash
+#/ run stbt playlist with crontab 
+#/ Usage:
+#/ ./stbt-jenkins-run.sh -p <project> -t <tag> -b <build> -h <help> -l <nb_loop> -r
+#/		p|project	= name of the project (mandatory)
+#/		t|tag		= specifiy the tag to checkout the tag instead of the BO
+#/		b|build		= specify the local BO to be tested to skip checkout server
+#/		i|init		= specify the precondition (power, hdmi) port
+#/		l|nb_loop	= specify the nb_loop to repeat the sanity tests many times
+#/		r|radar   	= if set, a radar will be generated
+#/		h|help		= to dispaly this message :-)
+
+FORGE=http://forge-urd44.osn.sagem/svn/sagem-stbt-v2/BO
+BOURL=$FORGE/branches/BO_sagem-stbt-v2
+SERVER=~/Desktop/Results
+BOTEST=~/STBTv2
+
+bold() { tput bold; printf "%s" "$*"; tput sgr0; }
+green() { tput setaf 2; printf "%s" "$*"; tput sgr0; }
+red() { tput setaf 1; printf "%s" "$*"; tput sgr0; }
+yellow() { tput setaf 3; printf "%s" "$*"; tput sgr0; }
+
+fail() { echo "$(red [FAILED] : $*)"; exit 1; }
+skip() { echo "$(yellow [SKIPPED] : $*)"; exit 77; }
+Done() { echo "$(green [INFO] : $*)"; }
+
+usage() { grep '^#/' "$0" | cut -c4-; }
+
+#  Checkout BO or Tag
+checkout_BO() {
+	test -d $BOTEST || mkdir -p $BOTEST
+	BOTEST=${BOTEST}/`date +%d%m%Y_%H%M`_${project}
+	if [ -z $tag ] ; then
+		svn co $BOURL $BOTEST
+	else
+		TAGURL=$FORGE/tags/RO_sagem-stbt-v2_${project}_$tag
+		BOTEST=${BOTEST}_$tag
+		svn co $TAGURL $BOTEST
+	fi
+}
+
+init_wall() {
+	if [ -z $init ] ; then
+		sed -i '/power_on/d' sanity.txt
+		sed -i '/test_boot/d' sanity.txt
+		sed -i '/power_off/d' sanity.txt
+		return 0
+	elif [ $STBT_VIDEO_DEVICE == "teradek" ] ; then
+		sed -i '/power_on/d' sanity.txt
+		sed -i '/test_boot/d' sanity.txt
+		python ../trunk/tests/precondition.py $init
+		sleep 150
+	elif [ $STBT_VIDEO_DEVICE == "magewell" ] ; then
+		set_stbt_conf "port" $init
+	fi
+}
+
+source_env() {
+	cd $BOTEST
+	source ./env_setup.sh $project
+}
+
+
+start_server() {
+	test -d $SERVER || mkdir -p $SERVER
+	cd $SERVER
+	instaweb stop
+	instaweb start
+	cd -
+}
+
+
+
+run_playlist() {
+	runtime=`date +%Y-%m-%d_%H-%M-%S`
+	for i in `seq 1 $nb_loop`; do
+		stbtv2 batch run -v -kk -1 -o $SERVER/${project}/${runtime} `cat sanity.txt`
+	done
+	#[ $? -ne 0 ] && fail "stbt batch failed to run"
+}
+
+build_radar() {
+	echo -e "\n--- GET RESULTS AND BUILD RADAR ---"
+	# remove old report (if exists)
+	if [ -d $SERVER/${project}/${runtime}/report ]; then
+		echo "  * rm -rf $SERVER/${project}/${runtime}/report"
+		rm -rf $SERVER/${project}/${runtime}/report
+	fi
+
+	# call to parsing_result.py
+	RESULT_SCRIPT_DIR=$BOTEST/projects/trunk/scripts/get_result
+	echo "  * $RESULT_SCRIPT_DIR/parsing_result.py $SERVER/${project}/${runtime}"
+	$RESULT_SCRIPT_DIR/parsing_result.py $SERVER/${project}/${runtime}
+
+	# copy the report directory in $SERVER
+	if [ -d $RESULT_SCRIPT_DIR/html_report/report ]; then
+		echo "  * cp -r $RESULT_SCRIPT_DIR/html_report/report $SERVER/${project}/${runtime}"
+		cp -r $RESULT_SCRIPT_DIR/html_report/report $SERVER/${project}/${runtime}
+	else
+		echo "  * $RESULT_SCRIPT_DIR/html_report/report not found !!!"
+	fi
+}
+
+send_mail() {
+	ip=`hostname -I | awk '{print $1}'`:5050
+	cp $BOTEST/projects/trunk/_sc_stbt/mailing.py $SERVER/${project}/${runtime}
+	cp $BOTEST/projects/trunk/_sc_stbt/mailing_list.txt $SERVER/${project}/${runtime}
+	if [ -e public_mailing_list.txt ]
+	then
+		cp $BOTEST/projects/${project}/public_mailing_list.txt $SERVER/${project}/${runtime}    
+	fi
+	cd $SERVER/${project}/${runtime}
+	subject="STBTv2:$project:$tag:$runtime"
+	if [ -e public_mailing_list.txt ]
+	then
+		cat public_mailing_list.txt >> mailing_list.txt
+	fi
+	mailing_list=`cat mailing_list.txt`
+	python mailing.py $mailing_list $subject $ip ${project}/${runtime}
+}
+
+
+main () {
+	if [ -z $build ] ; then
+		checkout_BO
+	else
+		BOTEST=$build
+	fi
+	source_env
+	init_wall
+	rm ../trunk/tests/statut_test.txt
+	start_server
+	run_playlist
+	if [ "$radar" = true ] ; then
+		build_radar
+	fi
+	sleep 5
+	send_mail
+}
+
+help=false
+nb_loop=1
+radar=false
+while getopts "hp:t:b:i:l:r" OPT
+do
+	case $OPT in
+		h)	usage >&2; exit 0	;;
+		p)	project=$OPTARG		;; 
+		t)	tag=$OPTARG			;;
+		b)	build=$OPTARG		;;
+		i)	init=$OPTARG		;;
+		l)	nb_loop=$OPTARG		;;
+		r)	radar=true			;;
+		*)	usage >&2; exit 1	;;
+	esac
+done
+
+echo "project: $project"
+echo "build: $build"
+echo "tag: $tag"
+echo "init: $init"
+echo "nb_loop: $nb_loop"
+echo "$BOTEST"
+
+
+[[ -z $project ]] && { fail "No project has been specified"; }
+
+main
+
+
+

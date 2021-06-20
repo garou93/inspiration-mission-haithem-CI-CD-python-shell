@@ -1,0 +1,48 @@
+#!/bin/sh
+
+# Copyright 2012-2013 YouView TV Ltd.
+# License: LGPL v2.1 or (at your option) any later version (see
+# https://github.com/stb-tester/stb-tester/blob/master/LICENSE for details).
+
+#/ usage: instaweb <command>
+#/
+#/ Available commands are:
+#/     start          start instaweb
+#/     stop           stop instaweb
+. utils.sh
+
+usage() { grep '^#/' "$0" | cut -c4-; }
+[ $# -ge 1 ] || { usage >&2; exit 1; }
+
+instaweb() {
+	case $1 in
+		start)
+			# Wait for http server to start up:
+			started=false
+			for i in $(seq 100); do
+				netstat -ln --tcp | grep -q ':5050' && { started=true; Done "HTTP server is running"; break; }
+				sleep 0.1
+			done
+			if [ $started == false ] ; then
+			{
+				ip=`hostname -I | awk '{print $1}'`
+				stbtv2 batch instaweb ${ip}:5050 &
+				echo "$!" > /tmp/instaweb.pid
+				Done "HTTP server is started on $ip"
+				return 0
+			}
+			fi
+			;;
+		stop)
+			[[ -f /tmp/instaweb.pid ]] || { Done "HTTP server is closed"; exit 1; }
+			killtree $(<"/tmp/instaweb.pid")
+			Done "HTTP is stopped: $(<"/tmp/instaweb.pid")"
+			rm -rf /tmp/instaweb.pid
+			instaweb_python_pid=`ps -ef | grep instaweb | grep python | awk '{print $2}'`
+			[ ! -z $instaweb_python_pid ] && kill -9 $instaweb_python_pid
+				#Done "kill -9 $instaweb_python_pid";
+			;;
+	esac
+}
+
+instaweb $1

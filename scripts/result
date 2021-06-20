@@ -1,0 +1,11 @@
+#!/bin/bash
+
+case $(cat exit-status) in
+		0) printf "Results\t%s\n" "Success" >> extra-columns ;;
+		1) printf "Results\t%s\n" "Fail" >> extra-columns ;;
+		*) printf "Results\t%s\n" "Error" >> extra-columns ;;
+esac
+
+# copy the config file of current test into results directory
+cp $STBT_CONFIG_FILE_CUSTOM .
+

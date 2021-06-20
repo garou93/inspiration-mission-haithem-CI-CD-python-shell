@@ -1,0 +1,6 @@
+#!/bin/bash
+
+test_name=`grep script: combined.log | awk '{print $5}'`
+test_name=`echo "$test_name" | awk -F'[::]' '{print $1}'`
+commit=`svnversion -c $test_name`
+printf "%s\n" "$commit" > git-commit

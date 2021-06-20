@@ -1,0 +1,33 @@
+../trunk/tests/hdmi_switch.py::set_hdmi_input
+
+../trunk/tests/power_off.py::test_power_all_off
+
+../trunk/tests/youtube_video.py::test_open_video_youtube
+../trunk/tests/youtube_video.py::test_navigation_youtube
+../trunk/tests/youtube_video.py::test_youtube_motion
+../trunk/tests/youtube_video.py::test_youtube_pause
+../trunk/tests/youtube_video.py::test_youtube_play
+../trunk/tests/youtube_video.py::test_youtube_fastforward
+../trunk/tests/youtube_video.py::test_youtube_rewind
+../trunk/tests/youtube_video.py::test_exit_youtube
+
+#goto netflix
+../trunk/tests/netflix_video.py::sign_in_netflix
+../trunk/tests/netflix_video.py::test_navigation_netflix
+../trunk/tests/netflix_video.py::open_video_netflix
+../trunk/tests/netflix_video.py::test_netflix_motion
+../trunk/tests/netflix_video.py::test_netflix_pause
+../trunk/tests/netflix_video.py::test_netflix_play
+../trunk/tests/netflix_video.py::test_netflix_fastforward
+../trunk/tests/netflix_video.py::test_netflix_rewind
+../trunk/tests/netflix_video.py::test_switch_profile_netflix
+../trunk/tests/netflix_video.py::test_exit_netflix
+#goto netflix
+../trunk/tests/netflix_video.py::sign_out_netflix
+../trunk/tests/standby_wakeup.py::test_set_standby
+
+
+../trunk/tests/standby_wakeup.py::set_wakeup_from_fake_standby
+
+#quad_reset
+../trunk/tests/quad_reset.py::reset_quad

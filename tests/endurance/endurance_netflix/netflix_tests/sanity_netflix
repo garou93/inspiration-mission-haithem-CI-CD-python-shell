@@ -1,0 +1,67 @@
+###--------- Scenario 1-------------
+../trunk/tests/endurance/endurance_netflix/netflix_tests/goto_netflix.py
+../trunk/tests/endurance/endurance_netflix/netflix_tests/open_movie.py
+../trunk/tests/endurance/endurance_netflix/netflix_tests/trick_mode.py
+../trunk/tests/endurance/endurance_netflix/netflix_tests/back_to_catalogue_menu.py
+
+
+###--------- Scenario 2-------------
+../trunk/tests/endurance/endurance_generic/reboot.py
+../trunk/tests/endurance/endurance_netflix/netflix_tests/goto_netflix.py
+../trunk/tests/endurance/endurance_netflix/netflix_tests/open_movie.py
+../trunk/tests/endurance/endurance_netflix/netflix_tests/trick_mode.py
+../trunk/tests/endurance/endurance_netflix/netflix_tests/back_to_catalogue_menu.py
+
+
+###--------- Scenario 3-------------
+../trunk/tests/endurance/endurance_netflix/netflix_tests/goto_netflix.py
+../trunk/tests/endurance/endurance_netflix/netflix_tests/open_movie.py
+../trunk/tests/endurance/endurance_netflix/netflix_tests/back_to_catalogue_menu.py
+../trunk/tests/endurance/endurance_netflix/netflix_tests/navigation_catalogue.py
+
+
+###--------- Scenario 4-------------
+../trunk/tests/endurance/endurance_generic/reboot.py
+../trunk/tests/endurance/endurance_netflix/netflix_tests/goto_netflix.py
+../trunk/tests/endurance/endurance_netflix/netflix_tests/open_movie.py
+../trunk/tests/endurance/endurance_netflix/netflix_tests/back_to_catalogue_menu.py
+../trunk/tests/endurance/endurance_netflix/netflix_tests/navigation_catalogue.py
+
+
+###--------- Scenario 5-------------
+../trunk/tests/endurance/endurance_netflix/netflix_tests/goto_netflix.py
+../trunk/tests/endurance/endurance_netflix/netflix_tests/open_movie.py
+../trunk/tests/netflix_video.py::test_exit_netflix
+
+
+###--------- Scenario 6-------------
+../trunk/tests/endurance/endurance_generic/reboot.py
+../trunk/tests/endurance/endurance_netflix/netflix_tests/goto_netflix.py
+../trunk/tests/endurance/endurance_netflix/netflix_tests/open_movie.py
+../trunk/tests/netflix_video.py::test_exit_netflix
+
+
+###--------- Scenario 7-------------
+../trunk/tests/endurance/endurance_netflix/netflix_tests/goto_netflix.py
+../trunk/tests/endurance/endurance_netflix/netflix_tests/open_movie.py
+../trunk/tests/netflix_video.py::test_close_netflix
+
+
+###--------- Scenario 8-------------
+../trunk/tests/endurance/endurance_generic/reboot.py
+../trunk/tests/endurance/endurance_netflix/netflix_tests/goto_netflix.py
+../trunk/tests/endurance/endurance_netflix/netflix_tests/open_movie.py
+../trunk/tests/netflix_video.py::test_close_netflix
+
+
+###--------- Scenario 9-------------
+../trunk/tests/endurance/endurance_netflix/netflix_tests/goto_netflix.py
+../trunk/tests/endurance/endurance_netflix/netflix_tests/open_movie.py
+../trunk/tests/netflix_video.py::test_exit_netflix_by_button_home
+
+
+###--------- Scenario 10-------------
+../trunk/tests/endurance/endurance_generic/reboot.py
+../trunk/tests/endurance/endurance_netflix/netflix_tests/goto_netflix.py
+../trunk/tests/endurance/endurance_netflix/netflix_tests/open_movie.py
+../trunk/tests/netflix_video.py::test_exit_netflix_by_button_home

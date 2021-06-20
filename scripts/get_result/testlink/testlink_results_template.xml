@@ -1,0 +1,303 @@
+<?xml version="1.0"?>
+
+<document>	<serveur_url>http://localhost:8082/testlink/lib/api/xmlrpc/v1/xmlrpc.php</serveur_url>
+	<test_plan_id>7986</test_plan_id>
+	<platform_id>43</platform_id>
+	<build_id>58</build_id>
+	<testsuite>Boot
+		<testcase>
+			<name>Boot</name>
+			<id>8006</id>
+			<external_id>STB_TESTER-1</external_id>
+			<result>p</result>
+		</testcase>
+	</testsuite>
+	<testsuite>Endurance Zapping
+		<testcase>
+			<name>Endurance zapping PIP 1s</name>
+			<id>8048</id>
+			<external_id>STB_TESTER-15</external_id>
+			<result>p</result>
+		</testcase>
+		<testcase>
+			<name>Endurance zapping PIP 2s</name>
+			<id>8051</id>
+			<external_id>STB_TESTER-16</external_id>
+			<result>p</result>
+		</testcase>
+		<testcase>
+			<name>Endurance zapping PIP 3s</name>
+			<id>8054</id>
+			<external_id>STB_TESTER-17</external_id>
+			<result>p</result>
+		</testcase>
+		<testcase>
+			<name>Endurance zapping 1s</name>
+			<id>8057</id>
+			<external_id>STB_TESTER-18</external_id>
+			<result>p</result>
+		</testcase>
+		<testcase>
+			<name>Endurance zapping 2s</name>
+			<id>8060</id>
+			<external_id>STB_TESTER-19</external_id>
+			<result>p</result>
+		</testcase>
+		<testcase>
+			<name>Endurance zapping 3s</name>
+			<id>8063</id>
+			<external_id>STB_TESTER-20</external_id>
+			<result>p</result>
+		</testcase>
+		<testcase>
+			<name>Endurance zapping 5s</name>
+			<id>8066</id>
+			<external_id>STB_TESTER-21</external_id>
+			<result>p</result>
+		</testcase>
+		<testcase>
+			<name>Endurance zapping 10s</name>
+			<id>8069</id>
+			<external_id>STB_TESTER-22</external_id>
+			<result>p</result>
+		</testcase>
+		<testcase>
+			<name>Numeric zapping 10s</name>
+			<id>8072</id>
+			<external_id>STB_TESTER-23</external_id>
+			<result>p</result>
+		</testcase>
+	</testsuite>
+	<testsuite>Info Banner
+		<testcase>
+			<name>Info banner</name>
+			<id>8027</id>
+			<external_id>STB_TESTER-8</external_id>
+			<result>p</result>
+		</testcase>
+	</testsuite>
+	<testsuite>Informations
+		<testcase>
+			<name>Technical informations</name>
+			<id>8012</id>
+			<external_id>STB_TESTER-3</external_id>
+			<result>p</result>
+		</testcase>
+	</testsuite>
+	<testsuite>Launch menu
+		<testcase>
+			<name>Launch menu</name>
+			<id>8018</id>
+			<external_id>STB_TESTER-5</external_id>
+			<result>p</result>
+		</testcase>
+	</testsuite>
+	<testsuite>Live
+		<testcase>
+			<name>Live</name>
+			<id>8030</id>
+			<external_id>STB_TESTER-9</external_id>
+			<result>p</result>
+		</testcase>
+	</testsuite>
+	<testsuite>Max size UHD
+		<testcase>
+			<name>Max size UHD</name>
+			<id>8024</id>
+			<external_id>STB_TESTER-7</external_id>
+			<result>p</result>
+		</testcase>
+	</testsuite>
+	<testsuite>Navigation
+		<testcase>
+			<name>Navigate in menu item</name>
+			<id>8081</id>
+			<external_id>STB_TESTER-26</external_id>
+			<result>p</result>
+		</testcase>
+		<testcase>
+			<name>Navigate through the item on system settings</name>
+			<id>8084</id>
+			<external_id>STB_TESTER-27</external_id>
+			<result>p</result>
+		</testcase>
+		<testcase>
+			<name>Select and validate system settings</name>
+			<id>8087</id>
+			<external_id>STB_TESTER-28</external_id>
+			<result>p</result>
+		</testcase>
+		<testcase>
+			<name>Select and validate diagnostic settings</name>
+			<id>8090</id>
+			<external_id>STB_TESTER-29</external_id>
+			<result>p</result>
+		</testcase>
+		<testcase>
+			<name>Select and validate TV</name>
+			<id>8093</id>
+			<external_id>STB_TESTER-30</external_id>
+			<result>p</result>
+		</testcase>
+		<testcase>
+			<name>Select and validate exist guide</name>
+			<id>8096</id>
+			<external_id>STB_TESTER-31</external_id>
+			<result>p</result>
+		</testcase>
+		<testcase>
+			<name>Exit TV</name>
+			<id>8099</id>
+			<external_id>STB_TESTER-32</external_id>
+			<result>p</result>
+		</testcase>
+	</testsuite>
+	<testsuite>Netflix
+		<testcase>
+			<name>Go to Netflix menu</name>
+			<id>8102</id>
+			<external_id>STB_TESTER-33</external_id>
+			<result>p</result>
+		</testcase>
+	</testsuite>
+	<testsuite>PIP
+		<testcase>
+			<name>PIP</name>
+			<id>8033</id>
+			<external_id>STB_TESTER-10</external_id>
+			<result>p</result>
+		</testcase>
+	</testsuite>
+	<testsuite>PIP disabled on Timeshift
+		<testcase>
+			<name>PIP disabled on timeshift</name>
+			<id>8039</id>
+			<external_id>STB_TESTER-12</external_id>
+			<result>p</result>
+		</testcase>
+	</testsuite>
+	<testsuite>Portal loading
+		<testcase>
+			<name>Portal loading</name>
+			<id>8015</id>
+			<external_id>STB_TESTER-4</external_id>
+			<result>p</result>
+		</testcase>
+	</testsuite>
+	<testsuite>Power
+		<testcase>
+			<name>Sets the power state of the STB standby</name>
+			<id>8129</id>
+			<external_id>STB_TESTER-42</external_id>
+			<result>p</result>
+		</testcase>
+		<testcase>
+			<name>Sets all power ports off</name>
+			<id>8132</id>
+			<external_id>STB_TESTER-43</external_id>
+			<result>p</result>
+		</testcase>
+	</testsuite>
+	<testsuite>Standby Wakeup
+		<testcase>
+			<name>Standby</name>
+			<id>8009</id>
+			<external_id>STB_TESTER-2</external_id>
+			<result>p</result>
+		</testcase>
+	</testsuite>
+	<testsuite>Subtitles
+		<testcase>
+			<name>Subtitles from RCU</name>
+			<id>8075</id>
+			<external_id>STB_TESTER-24</external_id>
+			<result>p</result>
+		</testcase>
+		<testcase>
+			<name>Subtitles from menu</name>
+			<id>8078</id>
+			<external_id>STB_TESTER-25</external_id>
+			<result>p</result>
+		</testcase>
+	</testsuite>
+	<testsuite>Swap Zapping PIP
+		<testcase>
+			<name>Zapping</name>
+			<id>8036</id>
+			<external_id>STB_TESTER-11</external_id>
+			<result>p</result>
+		</testcase>
+	</testsuite>
+	<testsuite>Timeshift
+		<testcase>
+			<name>Timeshift</name>
+			<id>8021</id>
+			<external_id>STB_TESTER-6</external_id>
+			<result>p</result>
+		</testcase>
+	</testsuite>
+	<testsuite>Youtube
+		<testcase>
+			<name>Go to Youtube menu</name>
+			<id>8105</id>
+			<external_id>STB_TESTER-34</external_id>
+			<result>p</result>
+		</testcase>
+		<testcase>
+			<name>Opens a video and detects blackscreen</name>
+			<id>8108</id>
+			<external_id>STB_TESTER-35</external_id>
+			<result>p</result>
+		</testcase>
+		<testcase>
+			<name>Detects motion from Youtube video</name>
+			<id>8111</id>
+			<external_id>STB_TESTER-36</external_id>
+			<result>p</result>
+		</testcase>
+		<testcase>
+			<name>Checks video is paused</name>
+			<id>8114</id>
+			<external_id>STB_TESTER-37</external_id>
+			<result>p</result>
+		</testcase>
+		<testcase>
+			<name>Checks video is played</name>
+			<id>8117</id>
+			<external_id>STB_TESTER-38</external_id>
+			<result>p</result>
+		</testcase>
+		<testcase>
+			<name>Checks motion is forwarded</name>
+			<id>8120</id>
+			<external_id>STB_TESTER-39</external_id>
+			<result>p</result>
+		</testcase>
+		<testcase>
+			<name>Checks motion is rewinded</name>
+			<id>8123</id>
+			<external_id>STB_TESTER-40</external_id>
+			<result>p</result>
+		</testcase>
+		<testcase>
+			<name>Exits from Youtube</name>
+			<id>8126</id>
+			<external_id>STB_TESTER-41</external_id>
+			<result>p</result>
+		</testcase>
+	</testsuite>
+	<testsuite>Zapping
+		<testcase>
+			<name>Tests zapping</name>
+			<id>8042</id>
+			<external_id>STB_TESTER-13</external_id>
+			<result>p</result>
+		</testcase>
+		<testcase>
+			<name>Tests zapping performance</name>
+			<id>8045</id>
+			<external_id>STB_TESTER-14</external_id>
+			<result>p</result>
+		</testcase>
+	</testsuite>
+</document>
